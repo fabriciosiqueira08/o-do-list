@@ -12,6 +12,7 @@ function renderTodo() {
 
             <input type="checkbox" id="task-${task.id}">
             <label for="task-${task.id}">${task.title}</label>
+            <button type="button">x</button>
         
         `;
 
@@ -22,6 +23,25 @@ function renderTodo() {
             } else {
                 li.classList.remove('complete');
         }
+
+        });
+
+        li.querySelector('button').addEventListener('click', e => {
+            let button = e.target
+            let li = button.parentNode
+            let input = li.querySelector('input')
+            let id = input.id
+            let idArray = id.split('-');
+            let todoID = idArray[1];
+            let title = li.querySelector('label').innerText;
+
+           if (confirm(`Deseja realmente excluir a tarefa ${title}?`)) {
+
+            data = data.filter(task => task.id !== parseInt(todoID));
+
+            renderTodo();
+
+           }
 
         });
 
